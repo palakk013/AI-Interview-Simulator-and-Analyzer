@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>AI Interview Simulator</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="login-layout" class="login-container">
+      <div class="card login-box">
+        <h3 style="text-align: center; margin-bottom: 20px">
+          Welcome to AI Interview
+        </h3>
+        <div class="form-group">
+          <label>Username</label>
+          <input
+            type="text"
+            id="login-user"
+            class="dropdown"
+            placeholder="Enter username"
+          />
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input
+            type="password"
+            id="login-pass"
+            class="dropdown"
+            placeholder="Enter password"
+          />
+        </div>
+        <button id="login-btn" style="width: 100%">Sign In / Sign Up</button>
+      </div>
+    </div>
+
+    <div id="app-layout" class="container" style="display: none">
+      <aside class="sidebar">
+        <h2>AI Interview</h2>
+        <ul id="nav-links">
+          <li class="active" data-target="dashboard-page">Dashboard</li>
+          <li data-target="planner-page">Planner & Topics</li>
+          <li data-target="live-page">Live Interview</li>
+          <li data-target="results-page">Results & Feedback</li>
+          <li data-target="history-page">Mock History</li>
+          <li data-target="resources-page">Resources</li>
+        </ul>
+      </aside>
+
+      <main class="main">
+        <div class="navbar">
+          <div class="header-title">
+            <h3 id="page-title">Dashboard</h3>
+            <p class="subtitle" id="welcome-msg">Welcome back!</p>
+          </div>
+
+          <div class="user-profile-wrapper">
+            <div class="user-profile" id="profile-toggle">
+              <div class="avatar">U</div>
+              <span class="user-name" id="display-name">User</span>
+            </div>
+            <div class="profile-dropdown" id="profile-dropdown">
+              <button
+                id="logout-btn"
+                style="
+                  background: #d93f2f;
+                  width: 100%;
+                  border: none;
+                  padding: 10px;
+                  color: white;
+                  border-radius: 5px;
+                  cursor: pointer;
+                "
+              >
+                Log Out
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div id="dashboard-page" class="view-section active-view">
+          <div class="cards">
+            <div class="card center">
+              <h4>Overall Performance</h4>
+              <canvas id="performanceChart"></canvas>
+            </div>
+            <div class="card">
+              <h4>Weak Topics</h4>
+              <ul id="dash-weak-topics">
+                <li>System Design</li>
+                <li>Algorithms</li>
+                <li>DBMS</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h4>Interviews Completed</h4>
+              <p class="big" id="dash-completed">7</p>
+              <span>This week</span>
+            </div>
+          </div>
+
+          <div class="grid">
+            <div class="card">
+              <div class="card-header">Activity</div>
+              <div class="card-body">
+                <div class="months" id="months"></div>
+                <div class="heatmap-wrapper">
+                  <div class="days">
+                    <span>Mon</span><span>Wed</span><span>Fri</span>
+                  </div>
+                  <div class="heatmap" id="heatmap"></div>
+                </div>
+                <div class="legend">
+                  <span>Less</span>
+                  <div class="box"></div>
+                  <div class="box level-1"></div>
+                  <div class="box level-2"></div>
+                  <div class="box level-3"></div>
+                  <div class="box level-4"></div>
+                  <span>More</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="card large">
+              <h4>Skill Breakdown</h4>
+              <ul id="dash-skills">
+                <li>Problem Solving - 80%</li>
+                <li>Communication - 70%</li>
+                <li>SQL - 60%</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="grid">
+            <div class="card">
+              <h4>Recent Mock History</h4>
+              <ul id="dash-history">
+                <li>Amazon - Data Analyst (Score: 88%)</li>
+                <li>TCS - SQL Round (Score: 75%)</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h4>Today's Goal</h4>
+              <p>Complete 1 more interview session</p>
+              <button id="start-practice-btn">Go to Planner</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="planner-page" class="view-section">
+          <div class="card">
+            <h4>Study Planner & Generator</h4>
+            <p style="color: #94a3b8; margin-bottom: 20px">
+              Select your field to see relevant topics, then generate a full
+              5-question interview session.
+            </p>
+
+            <div class="form-group">
+              <label>Your Field:</label>
+              <select id="planner-field-select" class="dropdown">
+                <option value="" disabled selected>Select a profile...</option>
+                <option value="SDE">SDE</option>
+                <option value="App Developer">App Developer</option>
+                <option value="Web Developer">Web Developer</option>
+                <option value="DevOps Engineer">DevOps Engineer</option>
+                <option value="Data Engineer">Data Engineer</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Select Difficulty:</label>
+              <select id="planner-difficulty-select" class="dropdown">
+                <option value="" disabled selected>Select difficulty...</option>
+                <option value="easy">Easy</option>
+                <option value="medium">Medium</option>
+                <option value="hard">Hard</option>
+              </select>
+            </div>
+            <div
+              id="dynamic-topics-container"
+              style="display: none; margin-bottom: 25px"
+            >
+              <label style="color: #e2e8f0; margin-bottom: 10px; display: block"
+                >Core Topics for this Field:</label
+              >
+              <div
+                id="dynamic-topics-tags"
+                style="display: flex; flex-wrap: wrap; gap: 8px"
+              ></div>
+            </div>
+
+            <button
+              id="generate-interview-btn"
+              style="display: none; width: 100%">
+              Generate AI Interview Session
+            </button>
+          </div>
+        </div>
+
+        <div id="live-page" class="view-section">
+          <div class="card">
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 15px;
+              "
+            >
+              <h4>Live AI Interview</h4>
+              <span
+                id="interview-progress"
+                style="color: #3b49df; font-size: 14px; font-weight: 500"
+                >Question 1</span
+              >
+            </div>
+
+            <div class="question-box">
+              <h3 id="ai-question-text">
+                Configure your session in the Planner to start.
+              </h3>
+            </div>
+
+            <textarea
+              id="user-answer-box"
+              placeholder="Type your detailed answer here..."
+              rows="6"
+            ></textarea>
+
+            <div
+              id="live-feedback-box"
+              style="
+                display: none;
+                background: #231f34;
+                padding: 15px;
+                border-radius: 8px;
+                margin-bottom: 15px;
+                border-left: 4px solid #39d353;
+                border: 1px solid #322d46;
+              "
+            >
+              <div
+                style="
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+                  margin-bottom: 8px;
+                "
+              >
+                <h4 style="margin: 0; color: #39d353; border: none; padding: 0">
+                  AI Analysis
+                </h4>
+                <span
+                  id="live-score-badge"
+                  style="
+                    background: #39d353;
+                    color: #151221;
+                    padding: 2px 8px;
+                    border-radius: 12px;
+                    font-weight: bold;
+                    font-size: 12px;
+                  "
+                  >Score: 85%</span
+                >
+              </div>
+              <p
+                id="live-feedback-text"
+                style="
+                  color: #e2e8f0;
+                  margin-bottom: 0;
+                  font-size: 14px;
+                  line-height: 1.5;
+                "
+              ></p>
+            </div>
+
+            <div style="display: flex; gap: 10px">
+              <button id="analyze-btn" style="flex: 1; display: none">
+                Analyze Answer
+              </button>
+              <button
+                id="next-question-btn"
+                style="
+                  flex: 1;
+                  display: none;
+                  background: transparent;
+                  border: 1px solid #3b49df;
+                  color: #3b49df;
+                "
+              >
+                Next Question
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div id="results-page" class="view-section">
+    <div class="card">
+    <h4>Session Summary</h4>
+    <div id="feedback-content" style="color: #e2e8f0">
+      Complete a full session to see your final summary.
+    </div>
+  </div>
+</div>
+
+        <div id="history-page" class="view-section">
+          <div class="card">
+            <h4>All Past Interviews</h4>
+            <ul id="full-history-list"></ul>
+          </div>
+        </div>
+        <div id="resources-page" class="view-section">
+          <div class="card">
+            <h4>Recommended Reading</h4>
+            <ul>
+              <li>Cracking the Coding Interview</li>
+            </ul>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
