@@ -1,0 +1,46 @@
+# AI Interview Simulator and Analyzer
+
+An AI-powered interview preparation platform that helps users practice mock interviews and improve their communication and problem-solving skills through automated feedback and response analysis.
+
+## 🚀 Live Demo
+https://projectreview-beige.vercel.app/
+
+## 📌 Features
+- AI-generated interview questions
+- Mock interview simulation
+- Response analysis and feedback
+- User-friendly and interactive interface
+- Real-time interview practice experience
+- Performance improvement assistance
+
+## 🛠️ Tech Stack
+- React.js
+- JavaScript
+- HTML5
+- CSS3
+- Node.js
+- AI APIs
+- Vercel (Deployment)
+
+## 📖 Project Overview
+The AI Interview Simulator and Analyzer is designed to help students and job seekers prepare for technical and HR interviews in an interactive way. Users can practice answering interview questions while the system analyzes responses and provides useful feedback to improve interview performance and confidence.
+
+## 🎯 Objectives
+- Improve interview preparation experience
+- Provide AI-driven interview assistance
+- Enhance communication and analytical skills
+- Simulate real interview scenarios
+
+## 💡 Future Enhancements
+- Voice-based interview interaction
+- Resume-based question generation
+- Detailed performance analytics dashboard
+- Authentication and user history tracking
+- Multi-domain interview support
+
+## ⚙️ Installation
+```bash
+git clone https://github.com/palakk013/AI-Interview-Simulator-and-Analyzer.git
+cd AI-Interview-Simulator-and-Analyzer
+npm install
+npm start
